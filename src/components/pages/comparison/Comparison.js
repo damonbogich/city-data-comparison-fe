@@ -7,6 +7,8 @@ import {
   removeCity,
 } from "../../../redux/actions/cityActions.js";
 
+import { setViewport, setCityMarkers } from "../../../redux/actions/viewportActions.js";
+
 import ReactMapGL from "react-map-gl";
 import styled from "styled-components";
 import "./Map.scss";
@@ -28,17 +30,13 @@ const MapWrapper = styled.div`
 `;
 
 export default function Map() {
-  const {
-    cityMarkers,
-    setCityMarkers,
-    viewport,
-    setViewport,
-    cityIndex,
-  } = useContext(CityContext);
+  const { cityIndex } = useContext(CityContext);
 
   const selected = useSelector((state) => state.cityReducer.selected);
-  const dispatch = useDispatch();
+  const cityMarkers = useSelector((state) => state.viewportReducer.cityMarkers);
+  const viewport = useSelector((state) => state.viewportReducer.viewport);
 
+  const dispatch = useDispatch();
 
   // Google Analytics Events
   useEffect((_) => {
@@ -89,7 +87,7 @@ export default function Map() {
     } else if (viewport.latitude > maxLat) {
       viewport.latitude = maxLat;
     }
-    setViewport({ ...viewport, width: "100%", height: "100%" });
+    dispatch(setViewport({ width: "100%", height: "100%" }));
   };
 
   return (

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Marker } from "react-map-gl";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { addCityMarkers } from "../../../../redux/actions/viewportActions.js";
+
 import PopupMap from "./PopupMap";
 
 import pin from "../assets/pin.png";
@@ -13,6 +17,9 @@ const Markers = ({
   toggleSelected,
   cityIndex,
 }) => {
+
+  const dispatch = useDispatch();
+
   const [popState, setPopState] = useState({
     posleft: 1,
     postop: 1,
@@ -43,7 +50,7 @@ const Markers = ({
               let foundCity = cityIndex.find(
                 (indexed) => indexed.ID === city._id
               );
-              setCityMarkers([...cityMarkers, foundCity]);
+              dispatch(addCityMarkers(foundCity));
               toggleSelected(foundCity);
               getCursorStyle();
             }}

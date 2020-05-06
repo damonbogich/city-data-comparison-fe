@@ -10,7 +10,7 @@ Object.keys(citiesIndex).forEach((item) => {
 });
 
 export const initialState = {
-    cityMarkers: cityIndex,
+    cityMarkers: [...cityIndex],
     viewport: {
         width: "100%",
         height: "100%",
@@ -25,6 +25,26 @@ export const initialState = {
 
 export default function viewportReducer(state = initialState, action) {
     switch (action.type) {
-
+        case types.SET_VIEWPORT:
+            return {
+                ...state,
+                viewport: {
+                    ...state.viewport,
+                    longitude: payload.longitude,
+                    latitude: payload.latitude
+                }
+            }
+        case types.SET_CITYMARKERS:
+            return {
+                ...state,
+                cityMarkers: [...payload]
+            }
+        case types.ADD_CITYMARKERS:
+            return {
+                ...state,
+                cityMarkers: [...cityMarkers, payload]
+            }
+        default:
+            return state;
     }
 }
