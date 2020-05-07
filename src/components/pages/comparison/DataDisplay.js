@@ -31,8 +31,6 @@ const DataDisplay = ({
   selected,
   toggleSelected,
   cityMarkers,
-  viewport,
-  setViewport,
   cityIndex,
 }) => {
   const [defaultDisplay, setdefaultDisplay] = useState(false);
@@ -48,8 +46,6 @@ const DataDisplay = ({
       <div className="inner-search-container">
         <MapSearch
           cityMarkers={cityMarkers}
-          viewport={viewport}
-          setViewport={setViewport}
           cityIndex={cityIndex}
         />
       </div>
